@@ -29,7 +29,8 @@
             </div>
         </form>
         <div class="weather-status text-white text-center">
-            <img src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
+            <!-- <img src="https://openweathermap.org/img/wn/02d@2x.png" alt=""> -->
+            <img id="img" src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
             <h1 id="city">Dhaka</h1>
             <h3><span id="temperature">38.06</span>&deg;C</h3>
             <h1 class="lead" id="status">Clouds</h1>
@@ -43,13 +44,18 @@
             const city = document.getElementById('city');
             const temp = document.getElementById('temperature');
             const status = document.getElementById('status');
+            //image
+            const img = document.getElementById('img');
+            //console.log(img.src);
 
-            fetch('https://api.openweathermap.org/data/2.5/weather?q=' + inputText + '&appid=82623408453a4c04848b352e710e3b30')
+            fetch('https://api.openweathermap.org/data/2.5/weather?q=' + inputText + '&units=metric&appid=82623408453a4c04848b352e710e3b30')
             .then(res => res.json())
             .then(data => {
                 city.innerText = data.name;
                 temp.innerText = data.main.temp;
                 status.innerText = data.weather[0].main;
+                img.src = 'https://openweathermap.org/img/wn/' + data.weather[0].icon + '@2x.png';
+                console.log(data)
             })
             .catch(error => alert(error))
         })
